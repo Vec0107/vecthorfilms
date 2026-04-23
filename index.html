@@ -517,6 +517,7 @@ select.fi option{background:var(--card)}
   <div class="footer-bottom">
     <div class="footer-copy" id="t-footer_copy">&copy; 2025 VecthorFilms. All rights reserved.</div>
     <div class="footer-social"><a href="#" class="social-link" id="social-ig-link">Instagram</a><a href="#" class="social-link" id="social-yt-link">YouTube</a><a href="#" class="social-link" id="social-vm-link">Vimeo</a><a href="#" class="social-link" id="social-tt-link">TikTok</a></div>
+    <button onclick="openAdmin()" style="background:none;border:none;color:var(--text3);font-family:var(--ff-body);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;padding:0.3rem 0;opacity:0.4;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.4'">Admin</button>
   </div>
 </footer>
 
@@ -864,8 +865,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeA
 function submitBooking(e){e.preventDefault();const to=contact.email||'hello@vecthorfilms.com',name=document.getElementById('b-name').value,type=document.getElementById('b-type').value;let body=`Name: ${name}\nProject Type: ${type}\n`;[['b-email','Email'],['b-org','Organisation'],['b-date','Timeframe'],['b-loc','Location'],['b-msg','Project Details'],['b-src','Found via']].forEach(([id,lab])=>{const v=document.getElementById(id)?.value;if(v)body+=`${lab}: ${v}\n`});window.location.href=`mailto:${to}?subject=${encodeURIComponent('Film Commission Enquiry — '+type+' — '+name)}&body=${encodeURIComponent(body)}`;document.getElementById('booking-form').style.display='none';document.getElementById('booking-success').style.display='block'}
 
 // ── ADMIN ──
-let clicks=0,ct2=null;
-document.getElementById('site-logo').addEventListener('click',e=>{clicks++;clearTimeout(ct2);ct2=setTimeout(()=>clicks=0,700);if(clicks>=3){e.preventDefault();openAdmin()}});
+// Admin opened via footer button
 function openAdmin(){const pw=prompt('Admin Password:'),stored=load(SK.pw,'vecthor2025');if(pw!==stored)return toast('Incorrect password');populateAdmin();document.getElementById('admin-overlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeAdmin(){document.getElementById('admin-overlay').classList.remove('open');document.body.style.overflow=''}
 function populateAdmin(){
